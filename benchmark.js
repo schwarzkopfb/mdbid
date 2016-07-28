@@ -2,12 +2,20 @@
 
 var COUNT = process.env.COUNT || 1500000
 
-var compare = {
-    bson:         require('bson').ObjectId,
-    mdbid:        require('./'),
-    mongoid:      require('mongoid'),
-    objectid:     require('objectid'),
-    'mongoid-js': require('mongoid-js').mongoid
+try {
+    // todo: use this try/catch in my other packages
+    var compare = {
+        bson:         require('bson').ObjectId,
+        mdbid:        require('./'),
+        mongoid:      require('mongoid'),
+        objectid:     require('objectid'),
+        'mongoid-js': require('mongoid-js').mongoid
+    }
+}
+catch (ex) {
+    console.error('missing development dependency')
+    console.error('did you forget to `npm i` in this folder?')
+    process.exit(1)
 }
 
 function measure(name, fn, n, cb) {
