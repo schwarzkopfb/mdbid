@@ -1,0 +1,45 @@
+{
+  "name": "mdbid",
+  "version": "1.0.0",
+  "description": "Generate unique identifiers like MongoDB does",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "zerop": "^1.0.1"
+  },
+  "devDependencies": {
+    "bson": "^0.5.2",
+    "mongoid": "0.0.1",
+    "mongoid-js": "^1.0.6",
+    "objectid": "^3.2.1",
+    "tap": "^6.2.0"
+  },
+  "scripts": {
+    "test": "tap test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schwarzkopfb/mdbid.git"
+  },
+  "keywords": [
+    "mongo",
+    "db",
+    "mongodb",
+    "database",
+    "id",
+    "identifier",
+    "object",
+    "objectid",
+    "fast",
+    "performant",
+    "efficient"
+  ],
+  "author": "Schwarzkopf Balazs <schwarzkopfb@icloud.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schwarzkopfb/mdbid/issues"
+  },
+  "homepage": "https://github.com/schwarzkopfb/mdbid#readme"
+}
