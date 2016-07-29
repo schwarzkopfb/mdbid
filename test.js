@@ -12,13 +12,6 @@ function requireUncached(module) {
     return require(module)
 }
 
-function padStr(str, len) {
-    while (str.length < len)
-        str = '0' + str
-
-    return str
-}
-
 test.test('api', function (test) {
     // module.exports
     test.type(gen, 'function', 'main export should be a function')
@@ -87,7 +80,7 @@ test.test('api', function (test) {
                         .toString('hex')
 
         test.strictEqual(
-            gen.machineId.toString(16), padStr(mid, 6),
+            pad(gen.machineId, 6, 16), mid,
             'mdbid.machineId should be the first 3 bytes of the md5 hash calculated from OS hostname'
         )
         test.throws(
