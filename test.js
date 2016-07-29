@@ -80,7 +80,7 @@ test.test('api', function (test) {
                         .toString('hex')
 
         test.strictEqual(
-            gen.machineId.toString(16), mid,
+            gen.machineId.toString(16), pad(mid, 6),
             'mdbid.machineId should be the first 3 bytes of the md5 hash calculated from OS hostname'
         )
         test.throws(
