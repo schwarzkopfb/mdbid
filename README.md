@@ -8,7 +8,7 @@
 # mdbid
 
 This package can be used to generate unique string identifiers in a _very_ performant way.
-The algorithm is identical with the one that [MongoDB](https://www.mongodb.com/) uses to create its document identifiers.
+The algorithm is identical to the one that [MongoDB](https://www.mongodb.com/) uses to create its document identifiers.
 
 ## Usage
 
@@ -19,6 +19,14 @@ const oid = require('mdbid')
 oid() // '579b64ac12b43732a08531d8'
 
 ```
+
+## API
+
+`mdbid()` ⇒ `string` <br>
+`mdbid.machineId`: 3-byte integer to use as machine identifier. <br>
+`mdbid.processId`: 2-byte integer to use as process identifier. <br>
+`mdbid.sequence`: Initial value of the sequence counter. It's a 3-byte integer. <br>
+`mdbid.version`: The version string from package manifest.
 
 ## Installation
 
@@ -54,8 +62,21 @@ It is true that you can create incremental numeric ids easily with atomic counte
 but those ids are only identical _per schema_ and a user can predict new ids.
 And that's unacceptable in a lot of real-life situations.
 
-MongoDB's id model seems like a good choice, because ids are guaranteed to be unique per server per process
-up to a _really huge_ (2^(5*8)) cluster of servers (with proper configuration).
+Mongo's id model seems like a good choice, because ids are guaranteed to be unique per server per process
+up to a _really huge_ (2^(5*8)) cluster of servers (with proper configuration). So I decided to use it.
+
+There are some already existing packages out there with the same purpose but some of them
+* are inefficient when the expected output is string
+* are not identical to Mongo's object id specification (last three bytes of an id must be a "counter, starting with a _random_ value")
+* are not well-tested despite they're providing a unnecessarily complex API.
+
+[`mongoid-js`](https://github.com/andrasq/node-mongoid-js) seemed like the best approach, but
+* it's code is unmaintained and messy
+* it not follows Node's coding-style standards
+* the [use](https://github.com/andrasq/node-mongoid-js/blob/master/mongoid.js#L68) of timers makes it _not truly_ sync
+and [counting calls](https://github.com/andrasq/node-mongoid-js/blob/master/mongoid.js#L64) can have unintended side effects
+
+So I decided to re-implement it in a sustainable manner. That's the story of `mdbid`.
 
 ## License
 
