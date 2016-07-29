@@ -45,14 +45,14 @@ function setDefaults() {
                     .update(os.hostname())
                     .digest()
                     .slice(0, 3)
-                    .toString('hex')
+                    .readUIntBE(0, 3)
 
     // reset the counter
     // (if `mid` or `pid` changes then previously allocated ids in the current second are freed)
     ctr = 0
 
     // `unique` is the fixed-length composition of `mid` and `pid`
-    unique = mid + pad(pid, 4, 16)
+    unique = pad(mid, 6, 16) + pad(pid, 4, 16)
 
     // calculate the initial sequence prefix
     seqpref = pad(~~(seq / 16), 5, 16)
@@ -125,6 +125,7 @@ function generateId() {
  */
 function assertRange(name, val, max) {
     assert.equal(typeof val, 'number', name + ' must be a number')
+    assert(!isNaN(val), 'number', name + ' must be a number')
 
     if (val > max)
         throw new RangeError(name + ' must be lower than ' + max + ', but is ' + val)
@@ -150,6 +151,8 @@ Object.defineProperties(exports, {
         set: function (value) {
             if (seq === value)
                 return
+            else if (typeof value === 'string')
+                value = parseInt(value, 16)
 
             assertRange('sequence', value, 0xffffff)
             seq = value
@@ -158,7 +161,7 @@ Object.defineProperties(exports, {
     },
 
     /**
-     * @prop {number} machineId - The machine identifier to use for id generation.
+     * @prop {string|number} machineId - The machine identifier to use for id generation.
      */
     machineId: {
         enumerable: true,
@@ -170,9 +173,11 @@ Object.defineProperties(exports, {
         set: function (value) {
             if (mid === value)
                 return
+            else if (typeof value === 'string')
+                value = parseInt(value, 16)
 
             assertRange('machineId', value, 0xffffff)
-            mid = pad(value, 3, 16)
+            mid = value
             setDefaults()
         }
     },
@@ -190,9 +195,11 @@ Object.defineProperties(exports, {
         set: function (value) {
             if (pid === value)
                 return
+            else if (typeof value === 'string')
+                value = parseInt(value, 16)
 
             assertRange('processId', value, 0xffff)
-            pid = pad(value, 2, 16)
+            pid = value
             setDefaults()
         }
     },
