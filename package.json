@@ -33,6 +33,8 @@
     "identifier",
     "object",
     "objectid",
+    "document",
+    "documentid",
     "fast",
     "performant",
     "efficient"
