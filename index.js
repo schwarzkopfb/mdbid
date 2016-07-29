@@ -161,7 +161,7 @@ Object.defineProperties(exports, {
     },
 
     /**
-     * @prop {string|number} machineId - The machine identifier to use for id generation.
+     * @prop {number} machineId - The machine identifier to use for id generation.
      */
     machineId: {
         enumerable: true,

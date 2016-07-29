@@ -273,7 +273,7 @@ test.test('sequence', function (test) {
     var seqpref  = gen().substring(18, 23)
 
     for (var i = 14; i--;)
-        gen().substring(18, 23)
+        gen()
 
     test.notEqual(seqpref, gen().substring(18, 23), 'sequence prefix should be regenerated')
 
