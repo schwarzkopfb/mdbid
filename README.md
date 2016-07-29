@@ -68,13 +68,13 @@ up to a _really huge_ (2^(5*8)) cluster of servers (with proper configuration). 
 There are some already existing packages out there with the same purpose but some of them
 * are inefficient when the expected output is string
 * are not identical to Mongo's object id specification (last three bytes of an id must be a "counter, starting with a _random_ value")
-* are not well-tested despite they're providing a unnecessarily complex API.
+* are not well-tested despite they're providing an unnecessarily complex API.
 
 [`mongoid-js`](https://github.com/andrasq/node-mongoid-js) seemed like the best approach, but
 * it's code is unmaintained and messy
-* it not follows Node's coding-style standards
+* it not follows Node's code-style standards
 * the [use](https://github.com/andrasq/node-mongoid-js/blob/master/mongoid.js#L68) of timers makes it _not truly_ sync
-and [counting calls](https://github.com/andrasq/node-mongoid-js/blob/master/mongoid.js#L64) can have unintended side effects
+and [counting calls](https://github.com/andrasq/node-mongoid-js/blob/master/mongoid.js#L64) can have unintended side effects.
 
 So I decided to re-implement it in a sustainable manner. That's the story of `mdbid`.
 
