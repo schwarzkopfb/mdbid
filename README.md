@@ -37,9 +37,25 @@ Here are the results of similar packages:
 bson: 1571ms
 mdbid: 593ms
 mongoid: 6153ms
-objectid: 6153ms
+objectid: 6154ms
 mongoid-js: 396ms
 ```
+
+## Motivation
+
+In many of my projects [Redis](http://redis.io/) is used as the primary database,
+which means that it's not just the caching layer of the system,
+but actual documents (users, sessions, accounts, etc.) are stored in it.
+
+Thus I need identifiers to include in Redis keys,
+but Redis does not provide any built-in solution for id generation.
+
+It is true that you can create incremental numeric ids easily with atomic counters,
+but those ids are only identical _per schema_ and a user can predict new ids.
+And that's unacceptable in a lot of real-life situations.
+
+MongoDB's id model seems like a good choice, because ids are guaranteed to be unique per server per process
+up to a _really huge_ (2^(5*8)) cluster of servers (with proper configuration).
 
 ## License
 
